@@ -1,8 +1,10 @@
 {:paths ["resources" "src"]
- :deps {integrant {:mvn/version "0.7.0"}
+ :deps {camel-snake-kebab {:mvn/version "0.4.0"}
+        integrant {:mvn/version "0.7.0"}
         org.clojure/clojure {:mvn/version "1.10.0"}
         ring/ring-core {:mvn/version "1.7.1"}
-        ring/ring-jetty-adapter {:mvn/version "1.7.1"}}
+        ring/ring-jetty-adapter {:mvn/version "1.7.1"}
+        ring/ring-json {:mvn/version "0.4.0"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
