@@ -13,4 +13,8 @@
                  [ring/ring-json "0.5.0"]]
   :main ^:skip-aot minimal-api-lein.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:source-paths ["dev/src"]
+                   :resource-paths ["dev/resources"]
+                   :dependencies [[integrant/repl "0.3.1"]]}
+             :repl {:repl-options {:init-ns user}}})
