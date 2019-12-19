@@ -1,12 +1,12 @@
 {:paths ["resources" "src"]
  :deps {bidi {:mvn/version "2.1.6"}
-        camel-snake-kebab {:mvn/version "0.4.0"}
+        camel-snake-kebab {:mvn/version "0.4.1"}
         integrant {:mvn/version "0.7.0"}
         metosin/ring-http-response {:mvn/version "0.9.1"}
-        org.clojure/clojure {:mvn/version "1.10.0"}
-        ring/ring-core {:mvn/version "1.7.1"}
-        ring/ring-jetty-adapter {:mvn/version "1.7.1"}
-        ring/ring-json {:mvn/version "0.4.0"}}
+        org.clojure/clojure {:mvn/version "1.10.1"}
+        ring/ring-core {:mvn/version "1.8.0"}
+        ring/ring-jetty-adapter {:mvn/version "1.8.0"}
+        ring/ring-json {:mvn/version "0.5.0"}}
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
