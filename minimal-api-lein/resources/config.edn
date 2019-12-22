@@ -1,5 +1,7 @@
-{:minimal-api-lein.routes/routes {}
- :minimal-api-lein.server/app {:routes #ig/ref :minimal-api-lein.routes/routes}
+{:minimal-api-lein.boundary.db.core/db {}
+ :minimal-api-lein.routes/routes {}
+ :minimal-api-lein.server/app {:routes #ig/ref :minimal-api-lein.routes/routes
+                               :db #ig/ref :minimal-api-lein.boundary.db.core/db}
  :minimal-api-lein.server/server {:app #ig/ref :minimal-api-lein.server/app
                                   :options {:port 3000
                                             :join? false}}}

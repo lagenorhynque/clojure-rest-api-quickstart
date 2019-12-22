@@ -5,9 +5,9 @@
 
 (t/deftest test-api
   (with-system [sys (helper/test-system)]
-    (with-db-data {"todo1" {"task" "build an API"}
-                   "todo2" {"task" "?????"}
-                   "todo3" {"task" "profit!"}}
+    (with-db-data [sys {:todo {"todo1" {"task" "build an API"}
+                               "todo2" {"task" "?????"}
+                               "todo3" {"task" "profit!"}}}]
       (t/testing "TODOリストの一覧が取得できる"
         (let [{:keys [status body]} (helper/http-get "/todos")]
           (t/is (= 200 status))

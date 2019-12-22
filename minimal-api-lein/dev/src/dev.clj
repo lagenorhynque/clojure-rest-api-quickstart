@@ -20,3 +20,9 @@
 (defn test
   ([] (test/run-all-tests #"minimal-api-lein\..+-test"))
   ([ns-sym] (test/run-tests ns-sym)))
+
+(defn db []
+  (:minimal-api-lein.boundary.db.core/db system))
+
+(defn db-run [f & args]
+  (apply f (db) args))

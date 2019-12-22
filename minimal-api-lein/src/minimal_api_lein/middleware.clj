@@ -8,3 +8,7 @@
                        (update :params (partial transform-keys #(->kebab-case % :separator \_)))
                        handler)]
       (transform-keys #(->snake_case % :separator \-) response))))
+
+(defn wrap-db [handler db]
+  (fn [request]
+    (handler (assoc request :db db))))
