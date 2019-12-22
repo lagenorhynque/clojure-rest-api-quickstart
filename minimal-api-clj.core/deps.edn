@@ -8,7 +8,9 @@
         ring/ring-jetty-adapter {:mvn/version "1.8.0"}
         ring/ring-json {:mvn/version "0.5.0"}}
  :aliases
- {:test {:extra-paths ["test"]
+ {:dev {:extra-paths ["dev/resources" "dev/src"]
+        :extra-deps {integrant/repl {:mvn/version "0.3.1"}}}
+  :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
   :runner
   {:extra-deps {com.cognitect/test-runner
