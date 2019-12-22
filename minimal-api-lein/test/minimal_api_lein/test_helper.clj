@@ -1,10 +1,15 @@
 (ns minimal-api-lein.test-helper
   (:require  [clj-http.client :as client]
+             [clojure.java.io :as io]
              [integrant.core :as ig]
-             [minimal-api-lein.core :as core]))
+             [minimal-api-lein.db :as db]))
 
 (defn test-config []
-  (assoc-in core/config [::core/server :options :port] 3001))
+  (-> (io/resource "config.edn")
+      slurp
+      ig/read-string
+      (assoc-in [:minimal-api-lein.server/server :options :port] 3001)
+      (doto ig/load-namespaces)))
 
 (defn test-system []
   (ig/prep (test-config)))
@@ -20,11 +25,11 @@
        (finally (ig/halt! ~bound-sym)))))
 
 (defmacro with-db-data [db-data-map & body]
-  `(let [old-val# @core/todos]
+  `(let [old-val# @db/todos]
      (try
-       (reset! core/todos ~db-data-map)
+       (reset! db/todos ~db-data-map)
        ~@body
-       (finally (reset! core/todos old-val#)))))
+       (finally (reset! db/todos old-val#)))))
 
 ;;; HTTP client
 
