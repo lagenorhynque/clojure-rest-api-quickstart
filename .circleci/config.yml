@@ -1,0 +1,36 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: /root/clojure-rest-api-quickstart
+    docker:
+    - image: clojure:lein-2.9.1-alpine
+      environment:
+        TZ: Asia/Tokyo
+    steps:
+    - checkout
+    - run:
+        name: Install dependencies
+        command: |
+          apk update
+          apk add curl git
+    - restore_cache:
+        key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
+    - run: cd minimal-api-lein; lein deps
+    - run: cd minimal-api-lein; lein test-coverage
+    - run: cd minimal-api-lein; lein lint
+    - run: bash <(curl -s https://codecov.io/bash) -f '!*.txt'
+    - save_cache:
+        key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
+        paths:
+        - /root/.lein
+        - /root/.m2
+    - run:
+        name: Save test results
+        command: |
+          mkdir -p ~/test-results/clojure-test
+          if [ -f minimal-api-lein/target/coverage/junit.xml ]; then
+            cp minimal-api-lein/target/coverage/junit.xml ~/test-results/clojure-test/
+          fi
+        when: always
+    - store_test_results:
+        path: ~/test-results

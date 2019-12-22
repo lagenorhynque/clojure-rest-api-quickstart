@@ -16,5 +16,21 @@
   :profiles {:uberjar {:aot :all}
              :dev {:source-paths ["dev/src"]
                    :resource-paths ["dev/resources"]
-                   :dependencies [[integrant/repl "0.3.1"]]}
+                   :dependencies [[clj-http "3.10.0"]
+                                  [integrant/repl "0.3.1"]
+                                  [pjstadig/humane-test-output "0.10.0"]]
+                   :plugins [[jonase/eastwood "0.3.6"]
+                             [lein-cljfmt "0.6.6"]
+                             [lein-cloverage "1.1.2"]
+                             [lein-kibit "0.1.8"]]
+                   :aliases {"test-coverage" ^{:doc "Execute cloverage."}
+                             ["cloverage" "--ns-exclude-regex" "^(:?dev|user)$" "--codecov" "--junit"]
+                             "lint" ^{:doc "Execute cljfmt check, eastwood and kibit."}
+                             ["do"
+                              ["cljfmt" "check"]
+                              ["eastwood" "{:source-paths [\"src\"]
+                                            :test-paths []}"]
+                              ["kibit"]]}
+                   :injections [(require 'pjstadig.humane-test-output)
+                                (pjstadig.humane-test-output/activate!)]}
              :repl {:repl-options {:init-ns user}}})
