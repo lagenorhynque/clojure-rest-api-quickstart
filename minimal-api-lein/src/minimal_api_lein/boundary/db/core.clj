@@ -1,6 +1,10 @@
 (ns minimal-api-lein.boundary.db.core
-  (:require [clojure.string :as str]
+  (:require [clojure.spec.alpha :as s]
+            [clojure.string :as str]
             [integrant.core :as ig]))
+
+(s/def ::data any?)
+(s/def ::db (s/keys :req-un [::data]))
 
 (defrecord Boundary [data])
 

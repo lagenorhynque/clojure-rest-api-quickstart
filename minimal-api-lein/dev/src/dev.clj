@@ -6,14 +6,20 @@
             [clojure.test :as test]
             [clojure.tools.namespace.repl :refer [refresh]]
             [integrant.core :as ig]
-            [integrant.repl :refer [clear halt go init prep reset]]
-            [integrant.repl.state :refer [config system]]))
+            [integrant.repl :refer [clear halt go init prep]]
+            [integrant.repl.state :refer [config system]]
+            [orchestra.spec.test :as stest]))
 
 (defn read-config []
   (-> (io/resource "config.edn")
       slurp
       ig/read-string
       (doto ig/load-namespaces)))
+
+(defn reset []
+  (let [result (integrant.repl/reset)]
+    (with-out-str (stest/instrument))
+    result))
 
 (integrant.repl/set-prep! (comp ig/prep read-config))
 
@@ -26,3 +32,6 @@
 
 (defn db-run [f & args]
   (apply f (db) args))
+
+(when (io/resource "local.clj")
+  (load "local"))

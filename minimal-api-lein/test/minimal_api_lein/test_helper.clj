@@ -1,7 +1,8 @@
 (ns minimal-api-lein.test-helper
   (:require  [clj-http.client :as client]
              [clojure.java.io :as io]
-             [integrant.core :as ig]))
+             [integrant.core :as ig]
+             [orchestra.spec.test :as stest]))
 
 (defn test-config []
   (-> (io/resource "config.edn")
@@ -14,6 +15,12 @@
   (ig/prep (test-config)))
 
 (def test-url-prefix "http://localhost:3001")
+
+;;; fixtures
+
+(defn instrument-specs [f]
+  (stest/instrument)
+  (f))
 
 ;;; macros for testing context
 

@@ -12,3 +12,4 @@ pom.xml.asc
 .hg/
 /.dir-locals.el
 /.eastwood
+/dev/src/local.clj
