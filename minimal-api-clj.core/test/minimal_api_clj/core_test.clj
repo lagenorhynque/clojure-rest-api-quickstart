@@ -3,6 +3,10 @@
             [minimal-api-clj.core :as sut]
             [minimal-api-clj.test-helper :as helper :refer [with-db-data with-system]]))
 
+(t/use-fixtures
+  :once
+  helper/instrument-specs)
+
 (t/deftest test-api
   (with-system [sys (helper/test-system)]
     (with-db-data [sys {:todo {"todo1" {"task" "build an API"}

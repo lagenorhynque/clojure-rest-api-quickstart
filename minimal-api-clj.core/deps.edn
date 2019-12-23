@@ -10,7 +10,8 @@
  :aliases
  {:dev {:extra-paths ["dev/resources" "dev/src"]
         :extra-deps {clj-http {:mvn/version "3.10.0"}
-                     integrant/repl {:mvn/version "0.3.1"}}}
+                     integrant/repl {:mvn/version "0.3.1"}
+                     orchestra {:mvn/version "2019.02.06-1"}}}
   :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
   :runner

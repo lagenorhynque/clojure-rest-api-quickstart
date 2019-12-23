@@ -1,5 +1,35 @@
 (ns minimal-api-clj.boundary.db.todo
-  (:require [minimal-api-clj.boundary.db.core :as db]))
+  (:require [clojure.spec.alpha :as s]
+            [minimal-api-clj.boundary.db.core :as db]))
+
+(s/def ::id string?)
+(s/def ::todo (s/map-of string? string?))
+(s/def ::todos (s/map-of ::id ::todo))
+
+(s/fdef find-todos
+  :args (s/cat :db ::db/db)
+  :ret ::todos)
+
+(s/fdef find-todo-by-id
+  :args (s/cat :db ::db/db
+               :id ::id)
+  :ret (s/nilable ::todo))
+
+(s/fdef create-todo!
+  :args (s/cat :db ::db/db
+               :todo ::todo)
+  :ret ::id)
+
+(s/fdef update-todo!
+  :args (s/cat :db ::db/db
+               :id ::id
+               :todo ::todo)
+  :ret any?)
+
+(s/fdef delete-todo!
+  :args (s/cat :db ::db/db
+               :id ::id)
+  :ret any?)
 
 (defprotocol Todo
   (find-todos [db])
