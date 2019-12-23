@@ -13,23 +13,39 @@ jobs:
         command: |
           apk update
           apk add curl git
+          curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
+          chmod +x linux-install-1.10.1.492.sh
+          ./linux-install-1.10.1.492.sh
     - restore_cache:
         key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
+    - restore_cache:
+        key: minimal-api-clj-{{ checksum "minimal-api-clj.core/deps.edn" }}
     - run: cd minimal-api-lein; lein deps
     - run: cd minimal-api-lein; lein test-coverage
     - run: cd minimal-api-lein; lein lint
+    - run: cd minimal-api-clj.core; clojure -A:dev:test:cloverage
+    - run: cd minimal-api-clj.core; clojure -A:cljfmt-check && clojure -A:eastwood
     - run: bash <(curl -s https://codecov.io/bash) -f '!*.txt'
     - save_cache:
         key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
         paths:
         - /root/.lein
         - /root/.m2
+    - save_cache:
+        key: minimal-api-clj-{{ checksum "minimal-api-clj.core/deps.edn" }}
+        paths:
+        - /root/.cpcache
+        - /root/.m2
     - run:
         name: Save test results
         command: |
-          mkdir -p ~/test-results/clojure-test
+          mkdir -p ~/test-results/lein-test
           if [ -f minimal-api-lein/target/coverage/junit.xml ]; then
-            cp minimal-api-lein/target/coverage/junit.xml ~/test-results/clojure-test/
+            cp minimal-api-lein/target/coverage/junit.xml ~/test-results/lein-test/
+          fi
+          mkdir -p ~/test-results/clj-test
+          if [ -f minimal-api-clj.core/target/coverage/junit.xml ]; then
+            cp minimal-api-clj.core/target/coverage/junit.xml ~/test-results/clj-test/
           fi
         when: always
     - store_test_results:

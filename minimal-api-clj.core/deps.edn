@@ -9,7 +9,8 @@
         ring/ring-json {:mvn/version "0.5.0"}}
  :aliases
  {:dev {:extra-paths ["dev/resources" "dev/src"]
-        :extra-deps {integrant/repl {:mvn/version "0.3.1"}}}
+        :extra-deps {clj-http {:mvn/version "3.10.0"}
+                     integrant/repl {:mvn/version "0.3.1"}}}
   :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
   :runner
@@ -17,4 +18,15 @@
                 {:git/url "https://github.com/cognitect-labs/test-runner"
                  :sha "76568540e7f40268ad2b646110f237a60295fa3c"}}
    :main-opts ["-m" "cognitect.test-runner"
-               "-d" "test"]}}}
+               "-d" "test"]}
+  :cloverage
+  {:extra-deps {cloverage {:mvn/version "1.1.2"}}
+   :main-opts ["-m" "cloverage.coverage"
+               "--src-ns-path" "src" "--test-ns-path" "test" "--codecov" "--junit"]}
+  :cljfmt-check
+  {:extra-deps {cljfmt {:mvn/version "0.6.6"}}
+   :main-opts ["-m" "cljfmt.main" "check" "src" "test" "deps.edn"]}
+  :eastwood
+  {:extra-deps {jonase/eastwood {:mvn/version "0.3.6"}}
+   :main-opts ["-m" "eastwood.lint" {:source-paths ["src"]
+                                     :test-paths []}]}}}
