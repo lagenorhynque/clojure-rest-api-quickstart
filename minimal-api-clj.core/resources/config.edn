@@ -1,5 +1,7 @@
-{:minimal-api-clj.routes/routes {}
- :minimal-api-clj.server/app {:routes #ig/ref :minimal-api-clj.routes/routes}
+{:minimal-api-clj.boundary.db.core/db {}
+ :minimal-api-clj.routes/routes {}
+ :minimal-api-clj.server/app {:routes #ig/ref :minimal-api-clj.routes/routes
+                              :db #ig/ref :minimal-api-clj.boundary.db.core/db}
  :minimal-api-clj.server/server {:app #ig/ref :minimal-api-clj.server/app
                                  :options {:port 3000
                                            :join? false}}}
