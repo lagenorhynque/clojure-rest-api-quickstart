@@ -7,10 +7,12 @@
                  [camel-snake-kebab "0.4.1"]
                  [integrant "0.7.0"]
                  [metosin/ring-http-response "0.9.1"]
+                 [mysql/mysql-connector-java "8.0.19"]
                  [org.clojure/clojure "1.10.1"]
                  [ring/ring-core "1.8.0"]
                  [ring/ring-jetty-adapter "1.8.0"]
-                 [ring/ring-json "0.5.0"]]
+                 [ring/ring-json "0.5.0"]
+                 [seancorfield/next.jdbc "1.0.13"]]
   :main ^:skip-aot minimal-api-lein.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
