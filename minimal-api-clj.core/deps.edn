@@ -1,33 +1,36 @@
 {:paths ["resources" "src"]
- :deps {bidi {:mvn/version "2.1.6"}
-        camel-snake-kebab {:mvn/version "0.4.1"}
-        integrant {:mvn/version "0.7.0"}
+ :deps {bidi/bidi {:mvn/version "2.1.6"}
+        camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.2"}
+        integrant/integrant {:mvn/version "0.8.0"}
         metosin/ring-http-response {:mvn/version "0.9.1"}
         org.clojure/clojure {:mvn/version "1.10.1"}
-        ring/ring-core {:mvn/version "1.8.0"}
-        ring/ring-jetty-adapter {:mvn/version "1.8.0"}
+        ring/ring-core {:mvn/version "1.8.2"}
+        ring/ring-jetty-adapter {:mvn/version "1.8.2"}
         ring/ring-json {:mvn/version "0.5.0"}}
  :aliases
  {:dev {:extra-paths ["dev/resources" "dev/src"]
-        :extra-deps {clj-http {:mvn/version "3.10.0"}
-                     integrant/repl {:mvn/version "0.3.1"}
-                     orchestra {:mvn/version "2019.02.06-1"}}}
+        :extra-deps {clj-http/clj-http {:mvn/version "3.11.0"}
+                     integrant/repl {:mvn/version "0.3.2"}
+                     orchestra/orchestra {:mvn/version "2020.09.18-1"}}}
   :test {:extra-paths ["test"]
-         :extra-deps {org.clojure/test.check {:mvn/version "RELEASE"}}}
+         :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}}}
   :runner
   {:extra-deps {com.cognitect/test-runner
                 {:git/url "https://github.com/cognitect-labs/test-runner"
-                 :sha "76568540e7f40268ad2b646110f237a60295fa3c"}}
+                 :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
    :main-opts ["-m" "cognitect.test-runner"
                "-d" "test"]}
+  :uberjar {:extra-deps {seancorfield/depstar {:mvn/version "2.0.161"}}
+            :main-opts ["-m" "hf.depstar.uberjar" "minimal-api-clj.core.jar"
+                        "-C" "-m" "minimal-api-clj.core"]}
   :cloverage
-  {:extra-deps {cloverage {:mvn/version "1.1.2"}}
+  {:extra-deps {cloverage/cloverage {:mvn/version "1.2.1"}}
    :main-opts ["-m" "cloverage.coverage"
                "--src-ns-path" "src" "--test-ns-path" "test" "--codecov" "--junit"]}
   :cljfmt-check
-  {:extra-deps {cljfmt {:mvn/version "0.6.6"}}
+  {:extra-deps {cljfmt/cljfmt {:mvn/version "0.7.0"}}
    :main-opts ["-m" "cljfmt.main" "check" "src" "test" "deps.edn"]}
   :eastwood
-  {:extra-deps {jonase/eastwood {:mvn/version "0.3.6"}}
+  {:extra-deps {jonase/eastwood {:mvn/version "0.3.12"}}
    :main-opts ["-m" "eastwood.lint" {:source-paths ["src"]
                                      :test-paths []}]}}}

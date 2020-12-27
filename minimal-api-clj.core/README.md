@@ -1,10 +1,10 @@
 # minimal-api-clj.core
 
-FIXME: description
+FIXME: my new application.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from https://github.com/minimal-api-clj/minimal-api-clj.core
 
 ## Usage
 
@@ -12,11 +12,19 @@ FIXME: explanation
 
 Run the project directly:
 
-    $ clj -m minimal-api-clj.core
+    $ clojure -M -m minimal-api-clj.core
 
 Run the project's tests (they'll fail until you edit them):
 
-    $ clj -A:test:runner
+    $ clojure -M:test:runner
+
+Build an uberjar:
+
+    $ clojure -M:uberjar
+
+Run that uberjar:
+
+    $ java -jar minimal-api-clj.core.jar
 
 ## Options
 
@@ -36,7 +44,7 @@ FIXME: listing of options this app accepts.
 
 ## License
 
-Copyright © 2019 FIXME
+Copyright © 2020 Lagenorhynque
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
