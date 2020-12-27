@@ -1,6 +1,7 @@
 (ns minimal-api-lein.middleware
-  (:require [camel-snake-kebab.core :refer [->kebab-case ->snake_case]]
-            [camel-snake-kebab.extras :refer [transform-keys]]))
+  (:require
+   [camel-snake-kebab.core :refer [->kebab-case ->snake_case]]
+   [camel-snake-kebab.extras :refer [transform-keys]]))
 
 (defn wrap-kebab-case-keys [handler]
   (fn [request]

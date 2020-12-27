@@ -1,7 +1,8 @@
 (ns minimal-api-lein.core
   (:gen-class)
-  (:require [clojure.java.io :as io]
-            [integrant.core :as ig]))
+  (:require
+   [clojure.java.io :as io]
+   [integrant.core :as ig]))
 
 (defn -main [& _]
   (-> (io/resource "config.edn")

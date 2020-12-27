@@ -1,7 +1,7 @@
 (ns minimal-api-clj.core-test
-  (:require [clojure.test :as t]
-            [minimal-api-clj.core :as sut]
-            [minimal-api-clj.test-helper :as helper :refer [with-db-data with-system]]))
+  (:require
+   [clojure.test :as t]
+   [minimal-api-clj.test-helper :as helper :refer [with-db-data with-system]]))
 
 (t/use-fixtures
   :once

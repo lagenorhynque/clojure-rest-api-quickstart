@@ -1,6 +1,7 @@
 (ns minimal-api-clj.handler
-  (:require [minimal-api-clj.boundary.db.todo :as db.todo]
-            [ring.util.http-response :as response]))
+  (:require
+   [minimal-api-clj.boundary.db.todo :as db.todo]
+   [ring.util.http-response :as response]))
 
 (defn list-todos [{:keys [db]}]
   (response/ok (db.todo/find-todos db)))

@@ -1,6 +1,7 @@
 (ns minimal-api-clj.routes
-  (:require [integrant.core :as ig]
-            [minimal-api-clj.handler :as handler]))
+  (:require
+   [integrant.core :as ig]
+   [minimal-api-clj.handler :as handler]))
 
 (defmethod ig/init-key ::routes [_ _]
   ["/" {"todos" {:get handler/list-todos

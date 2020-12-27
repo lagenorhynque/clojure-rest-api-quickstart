@@ -23,14 +23,12 @@
                                   [orchestra "2020.09.18-1"]
                                   [pjstadig/humane-test-output "0.10.0"]]
                    :plugins [[jonase/eastwood "0.3.12"]
-                             [lein-cljfmt "0.7.0"]
                              [lein-cloverage "1.2.1"]
                              [lein-kibit "0.1.8"]]
                    :aliases {"test-coverage" ^{:doc "Execute cloverage."}
                              ["cloverage" "--ns-exclude-regex" "^(:?dev|user)$" "--codecov" "--junit"]
-                             "lint" ^{:doc "Execute cljfmt check, eastwood and kibit."}
+                             "lint" ^{:doc "Execute eastwood and kibit."}
                              ["do"
-                              ["cljfmt" "check"]
                               ["eastwood" "{:source-paths [\"src\"]
                                             :test-paths []}"]
                               ["kibit"]]}

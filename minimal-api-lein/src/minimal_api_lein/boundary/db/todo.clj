@@ -1,6 +1,7 @@
 (ns minimal-api-lein.boundary.db.todo
-  (:require [clojure.spec.alpha :as s]
-            [minimal-api-lein.boundary.db.core :as db]))
+  (:require
+   [clojure.spec.alpha :as s]
+   [minimal-api-lein.boundary.db.core :as db]))
 
 (s/def ::id string?)
 (s/def ::todo (s/map-of string? string?))

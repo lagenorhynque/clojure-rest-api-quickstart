@@ -1,7 +1,7 @@
 (ns minimal-api-lein.core-test
-  (:require [clojure.test :as t]
-            [minimal-api-lein.core :as sut]
-            [minimal-api-lein.test-helper :as helper :refer [with-db-data with-system]]))
+  (:require
+   [clojure.test :as t]
+   [minimal-api-lein.test-helper :as helper :refer [with-db-data with-system]]))
 
 (t/use-fixtures
   :once

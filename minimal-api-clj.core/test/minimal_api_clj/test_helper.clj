@@ -1,8 +1,9 @@
 (ns minimal-api-clj.test-helper
-  (:require  [clj-http.client :as client]
-             [clojure.java.io :as io]
-             [integrant.core :as ig]
-             [orchestra.spec.test :as stest]))
+  (:require
+   [clj-http.client :as client]
+   [clojure.java.io :as io]
+   [integrant.core :as ig]
+   [orchestra.spec.test :as stest]))
 
 (defn test-config []
   (-> (io/resource "config.edn")

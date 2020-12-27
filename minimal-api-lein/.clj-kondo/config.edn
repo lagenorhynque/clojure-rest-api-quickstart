@@ -1,0 +1,4 @@
+{:lint-as {clojure.test.check.clojure-test/defspec clojure.test/deftest
+           clojure.test.check.properties/for-all clojure.core/for
+           minimal-api-lein.test-helper/with-system clojure.core/with-open}
+ :linters {:unresolved-namespace {:exclude []}}}

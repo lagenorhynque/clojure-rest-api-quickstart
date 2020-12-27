@@ -14,3 +14,4 @@ pom.xml.asc
 /.dir-locals.el
 /.eastwood
 /dev/src/local.clj
+.clj-kondo/.cache

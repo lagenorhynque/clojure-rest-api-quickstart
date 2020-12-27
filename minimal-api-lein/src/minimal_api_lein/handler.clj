@@ -1,6 +1,7 @@
 (ns minimal-api-lein.handler
-  (:require [minimal-api-lein.boundary.db.todo :as db.todo]
-            [ring.util.http-response :as response]))
+  (:require
+   [minimal-api-lein.boundary.db.todo :as db.todo]
+   [ring.util.http-response :as response]))
 
 (defn list-todos [{:keys [db]}]
   (response/ok (db.todo/find-todos db)))

@@ -1,9 +1,9 @@
 version: 2.1
 jobs:
   build:
-    working_directory: /root/clojure-rest-api-quickstart
+    working_directory: ~/clojure-rest-api-quickstart
     docker:
-    - image: clojure:lein-2.9.1-alpine
+    - image: circleci/clojure:openjdk-11-lein-2.9.5
       environment:
         TZ: Asia/Tokyo
     steps:
@@ -11,31 +11,50 @@ jobs:
     - run:
         name: Install dependencies
         command: |
-          apk update
-          apk add curl git
-          curl -O https://download.clojure.org/install/linux-install-1.10.1.492.sh
-          chmod +x linux-install-1.10.1.492.sh
-          ./linux-install-1.10.1.492.sh
+          curl -O https://download.clojure.org/install/linux-install-1.10.1.763.sh
+          chmod +x linux-install-1.10.1.763.sh
+          sudo ./linux-install-1.10.1.763.sh
     - restore_cache:
         key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
     - restore_cache:
         key: minimal-api-clj-{{ checksum "minimal-api-clj.core/deps.edn" }}
     - run: cd minimal-api-lein; lein deps
     - run: cd minimal-api-lein; lein test-coverage
+    - run: cd minimal-api-clj.core; clojure -M:dev:test:cloverage
     - run: cd minimal-api-lein; lein lint
-    - run: cd minimal-api-clj.core; clojure -A:dev:test:cloverage
-    - run: cd minimal-api-clj.core; clojure -A:cljfmt-check && clojure -A:eastwood
+    - run: cd minimal-api-clj.core; clojure -M:eastwood
+    - run:
+        name: Install static code analysis tools
+        environment:
+          CLJSTYLE_VERSION: 0.14.0
+          CLJ_KONDO_VERSION: 2020.12.12
+          JOKER_VERSION: 0.15.7
+        command: |
+          # cljstyle
+          wget https://github.com/greglook/cljstyle/releases/download/${CLJSTYLE_VERSION}/cljstyle_${CLJSTYLE_VERSION}_linux.tar.gz
+          tar -xzf cljstyle_${CLJSTYLE_VERSION}_linux.tar.gz
+          sudo mv -f cljstyle /usr/local/bin/
+          # clj-kondo
+          curl -sLO https://raw.githubusercontent.com/borkdude/clj-kondo/master/script/install-clj-kondo
+          chmod +x install-clj-kondo
+          sudo ./install-clj-kondo --version ${CLJ_KONDO_VERSION}
+          # Joker
+          wget https://github.com/candid82/joker/releases/download/v${JOKER_VERSION}/joker-${JOKER_VERSION}-linux-amd64.zip
+          unzip -qq joker-${JOKER_VERSION}-linux-amd64.zip
+          sudo mv -f joker /usr/local/bin/
+    - run: cd minimal-api-lein; make lint
+    - run: cd minimal-api-clj.core; make lint
     - run: bash <(curl -s https://codecov.io/bash) -f '!*.txt'
     - save_cache:
         key: minimal-api-lein-{{ checksum "minimal-api-lein/project.clj" }}
         paths:
-        - /root/.lein
-        - /root/.m2
+        - ~/.lein
+        - ~/.m2
     - save_cache:
         key: minimal-api-clj-{{ checksum "minimal-api-clj.core/deps.edn" }}
         paths:
-        - /root/.cpcache
-        - /root/.m2
+        - ~/.cpcache
+        - ~/.m2
     - run:
         name: Save test results
         command: |
